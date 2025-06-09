@@ -67,13 +67,15 @@ void setup() {
 void loop() {
   // This part of the loop is for receiving confirmation messages back from Node C.
   // It is not required for the main functionality but can be useful.
+void loop() {
   if (MySerial.available()) {
-    String message = MySerial.readString();
+    String message = MySerial.readStringUntil('\n');
+    message.trim(); // Removes any leading/trailing whitespace and \r
     if (message == "Uploaded") {
       screen.drawString(0, 48, "Upload Complete");
       screen.display();
       delay(5000);
-      displayData();  // Refresh the display after showing the message
+      displayData(); // Refresh the display after showing the message
     }
   }
 }
